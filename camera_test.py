@@ -28,13 +28,38 @@ img = xiapi.Image()
 print('Starting data acquisition...')
 cam.start_acquisition()
 
+cv2.namedWindow("video",cv2.WINDOW_NORMAL)
 
-while cv2.waitKey() != ord('q'):
-    cam.get_image(img)
-    image = img.get_image_data_numpy()
-    image = cv2.resize(image,(240,240))
-    cv2.imshow("test", image)
-    cv2.waitKey()
+#TU ROB
+print("Press space to capture")
+
+while cv2.waitKey(10) != ord(' '):
+    cv2.waitKey(1)
+
+print("space was pressed")
+
+for i in range(4):
+     #get data and pass them from camera to img
+     cam.get_image(img)
+     image = img.get_image_data_numpy()
+     cv2.imshow("video", image)
+
+     cv2.imwrite("imagedata/image" + str(i) + ".jpg",image)
+
+#     newFile = open("imagedata/image" + str(i) + ".dat", "wb")
+     # write to file
+#     newFile.write(image)
+#     newFile.close()
+
+
+
+print("Done")
+
+#    cam.get_image(img)
+#    image = img.get_image_data_numpy()
+#    image = cv2.resize(image,(240,240))
+#    cv2.imshow("test", image)
+#    cv2.waitKey()
 
 # for i in range(10):
 #     #get data and pass them from camera to img
