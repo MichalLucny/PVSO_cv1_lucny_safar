@@ -1,10 +1,11 @@
 from ximea import xiapi
 import cv2
+from camera_mosaic import camera_process_images
+
 ### runn this command first echo 0|sudo tee /sys/module/usbcore/parameters/usbfs_memory_mb  ###
 
 #create instance for first connected camera
 cam = xiapi.Camera()
-
 
 
 #start communication
@@ -30,13 +31,12 @@ cam.start_acquisition()
 
 cv2.namedWindow("video",cv2.WINDOW_NORMAL)
 
-#TU ROB
 print("Press space to capture")
 
 while cv2.waitKey(10) != ord(' '):
     cv2.waitKey(1)
 
-print("space was pressed")
+print("Capturing!\n")
 
 for i in range(4):
      #get data and pass them from camera to img
@@ -52,35 +52,7 @@ for i in range(4):
 #     newFile.close()
 
 
-
-print("Done")
-
-#    cam.get_image(img)
-#    image = img.get_image_data_numpy()
-#    image = cv2.resize(image,(240,240))
-#    cv2.imshow("test", image)
-#    cv2.waitKey()
-
-# for i in range(10):
-#     #get data and pass them from camera to img
-#     cam.get_image(img)
-#     image = img.get_image_data_numpy()
-#     cv2.imshow("test", image)
-#     cv2.waitKey()
-#     #get raw data from camera
-#     #for Python2.x function returns string
-#     #for Python3.x function returns bytes
-#     data_raw = img.get_image_data_raw()
-#
-#     #transform data to list
-#     data = list(data_raw)
-#
-#     #print image data and metadata
-#     print('Image number: ' + str(i))
-#     print('Image width (pixels):  ' + str(img.width))
-#     print('Image height (pixels): ' + str(img.height))
-#     print('First 10 pixels: ' + str(data[:10]))
-#     print('\n')
+print("Capturing done")
 
 #stop data acquisition
 print('Stopping acquisition...')
@@ -89,4 +61,5 @@ cam.stop_acquisition()
 #stop communication
 cam.close_device()
 
-print('Done.')
+camera_process_images()
+
