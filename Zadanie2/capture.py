@@ -37,15 +37,18 @@ while cv2.waitKey(10) != ord(' '):
 
 print("Capturing!\n")
 
-for i in range(12):
-    while cv2.waitKey(10) != ord(' '):
-        cv2.waitKey(1)
+for i in range(20):
+    while cv2.waitKey(1) != ord(' '):
+        cam.get_image(img)
+        image = img.get_image_data_numpy()
+        cv2.imshow("video", image)
+        continue
     #get data and pass them from camera to img
     cam.get_image(img)
     image = img.get_image_data_numpy()
     cv2.imshow("video", image)
-    cv2.waitKey(1)
-    cv2.imwrite("pattern" + str(i) + ".jpg",image)
+
+    cv2.imwrite("xipattern" + str(i) + ".jpg",image)
 
   
 print("Capturing done")
