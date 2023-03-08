@@ -50,7 +50,12 @@ for i in range(4):
      # write to file
 #     newFile.write(image)
 #     newFile.close()
+<<<<<<< HEAD:Zadanie1/camera_capture.py
   
+=======
+
+
+>>>>>>> 180c779e503afc3583340110f666dd8f057dcd5a:camera_capture.py
 print("Capturing done")
 
 #stop data acquisition

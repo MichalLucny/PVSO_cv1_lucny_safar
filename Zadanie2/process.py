@@ -40,6 +40,14 @@ newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 
 x, y, w, h = roi
 
+print (newcameramtx)
+
+fx = newcameramtx[1,1]
+
+print("Calibration done! Press space to process images")
+while cv2.waitKey(1) != ord(' '):
+    continue
+
 for i in range(10):
     img = cv2.imread("pattern" + str(i+1) + ".jpg")
     dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
