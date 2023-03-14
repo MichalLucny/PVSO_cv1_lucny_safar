@@ -73,11 +73,29 @@ cv2.resizeWindow('img',w,h)
 
 while cv2.waitKey(1) != ord(' '):
 
-
+    #calibration 
     cam.get_image(image)
     img = image.get_image_data_numpy()
     dst = cv2.undistort(img, mtx, dist, None, newcameramtx)
     dst = dst[y:y+h, x:x+w]
+
+    #circles 
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #mono are easier to process
+    gray = cv2.medianBlur(gray, 5) #preprocessing
+
+
+    rows = gray.shape[0]
+    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=90, param2=55, minRadius=10, maxRadius=110)
+
+    if circles is not None:
+        circles = np.uint16(np.around(circles))
+        for i in circles[0, :]:
+            center = (i[0], i[1])
+            cv2.circle(img, center, 1, (0, 100, 100), 3)
+            # circle outline
+            radius = i[2]
+            cv2.circle(img, center, radius, (255, 0, 255), 3)
+
     cv2.imshow('img', dst)
     
 
