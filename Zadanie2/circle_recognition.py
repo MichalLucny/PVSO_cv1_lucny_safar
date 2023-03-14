@@ -18,11 +18,12 @@ while True:
 #identifikacia kruhu
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    #gray = cv2.medianBlur(gray, 5)
-    gray = cv2.Laplacian(gray, -1, 3)
+    #gray = cv2.Laplacian(gray, -1, 3)
+    gray = cv2.medianBlur(gray, 5)
+
 
     rows = gray.shape[0]
-    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=100, param2=55, minRadius=10, maxRadius=110)
+    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=90, param2=55, minRadius=10, maxRadius=110)
 
     if circles is not None:
         circles = np.uint16(np.around(circles))
