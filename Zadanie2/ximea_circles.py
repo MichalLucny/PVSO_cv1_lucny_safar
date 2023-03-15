@@ -29,8 +29,8 @@ for i in range(20):
         imgpoints.append(corners2)
         cv2.drawChessboardCorners(img, (7,5), corners2, ret)
         
-        #cv2.imshow('img', img)
-        #cv2.waitKey(10)
+        cv2.imshow('img', img)
+        cv2.waitKey(1)
 
     else:
         continue
@@ -44,7 +44,7 @@ newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
 
 x, y, w, h = roi
 
-print (newcameramtx)
+#print (newcameramtx)
 
 fx = newcameramtx[0,0]
 fy = newcameramtx[1,1]
@@ -80,21 +80,21 @@ while cv2.waitKey(1) != ord(' '):
     dst = dst[y:y+h, x:x+w]
 
     #circles 
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #mono are easier to process
+    gray = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY) #mono are easier to process
     gray = cv2.medianBlur(gray, 5) #preprocessing
 
 
     rows = gray.shape[0]
-    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=90, param2=55, minRadius=10, maxRadius=110)
+    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=90, param2=55, minRadius=10, maxRadius=410) #max radius 110
 
     if circles is not None:
         circles = np.uint16(np.around(circles))
         for i in circles[0, :]:
             center = (i[0], i[1])
-            cv2.circle(img, center, 1, (0, 100, 100), 3)
+            cv2.circle(dst, center, 1, (0, 100, 100), 3)
             # circle outline
             radius = i[2]
-            cv2.circle(img, center, radius, (255, 0, 255), 3)
+            cv2.circle(dst, center, radius, (255, 0, 255), 3)
 
     cv2.imshow('img', dst)
     
