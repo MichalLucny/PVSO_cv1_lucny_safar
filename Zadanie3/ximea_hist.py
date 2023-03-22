@@ -3,33 +3,31 @@ import numpy as np
 from ximea import xiapi
 import cv2 
 
+cam = xiapi.Camera()
 
-#cv2.namedWindow('XIMEA cam',cv2.WINDOW_NORMAL)
-x = [1, 2, 3, 4, 5]
-y = [2, 4, 6, 8, 10]
+cam.open_device()
+cam.set_exposure(10000)
+cam.set_param("imgdataformat","XI_RGB24")
+cam.set_param("auto_wb",1)
 
-# Create a new figure and axis
-fig, ax = plt.subplots()
+image = xiapi.Image()
 
-# Plot the data on the axis
-line, = ax.plot(x, y)
+cam.start_acquisition()
 
-# Add a title and axis labels
-ax.set_title('Line Plot')
-ax.set_xlabel('X Axis')
-ax.set_ylabel('Y Axis')
+cv2.resizeWindow('img',w,h)
 
-# Display the plot
-plt.show(block=False)
+while cv2.waitKey(1) != ord(' '):
 
-# Periodically redraw the plot
-while True:
-    # Update the data
-    y = y*y
-    line.set_ydata(y)
+
+
+
+    cv2.imshow('img', dst)
     
-    # Redraw the plot
-    plt.draw()
-    plt.pause(1)  # Pause for 1 second
+
+
+print("Press space to exit")
+while cv2.waitKey(1) != ord(' '):
+    continue
+
 
 
