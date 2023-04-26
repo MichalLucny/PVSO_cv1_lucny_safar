@@ -85,7 +85,9 @@ while cv2.waitKey(1) != ord(' '):
 
 
     rows = gray.shape[0]
+    print(rows)
     circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=90, param2=55, minRadius=10, maxRadius=410) #max radius 110
+
 
     if circles is not None:
         circles = np.uint16(np.around(circles))
