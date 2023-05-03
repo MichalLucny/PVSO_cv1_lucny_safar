@@ -9,16 +9,15 @@ from sklearn.cluster import Birch
 #pcd = o3d.io.read_point_cloud("Cloud.ply")
 
 
-print("Loading captured pointcloud")
+#print("Loading captured pointcloud")
 pcd = o3d.io.read_point_cloud("conv.ply")
 
 print(pcd)
 print(np.asarray(pcd.points))
-#o3d.visualization.draw_geometries([pcd])
+o3d.visualization.draw_geometries([pcd])
 
 
-#ransac
-
+#cleaning from outliers
 cl, ind = pcd.remove_statistical_outlier(nb_neighbors=12,std_ratio=2.2)
 
 
@@ -27,9 +26,9 @@ outlier_cloud = pcd.select_by_index(ind, invert=True)
 
 inlier_cloud.paint_uniform_color([1, 0, 0])
 outlier_cloud.paint_uniform_color([0.6, 0.6, 0.6])
-#o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
+o3d.visualization.draw_geometries([inlier_cloud, outlier_cloud])
 
-#o3d.visualization.draw_geometries([cl])
+o3d.visualization.draw_geometries([cl])
 
 
 #birch
@@ -38,7 +37,7 @@ outlier_cloud.paint_uniform_color([0.6, 0.6, 0.6])
 
 #downloaded one
 #brc = Birch(branching_factor=40, n_clusters=56, threshold=2)
-
+#brc = Birch(branching_factor=40, n_clusters=8, threshold=2)
 #kinect one
 brc = Birch(branching_factor=40, n_clusters=8, threshold=0.71)
 
